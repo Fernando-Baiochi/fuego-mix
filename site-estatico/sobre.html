@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- PÁGINA: Sobre nós: história, missão/visão/valores, diferenciais
+     Equivale a: src/FuegoMX/Views/Home/Sobre.cshtml
+     Estilos: css/site.css, seção "6. HOME (cabeçalho-pagina, diferenciais)" -->
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FUEGO MX: delivery de comida mexicana. Tacos, burritos, nachos e muito mais. O sabor do México chega até você." />
+    <meta name="theme-color" content="#13110F" />
+    <script>
+        // Tema claro/escuro aplicado ANTES do CSS para a página não piscar (o botão sol/lua está no js/site.js)
+        (function (d) {
+            var t; try { t = localStorage.getItem("fx_tema"); } catch (e) { }
+            if (t !== "claro" && t !== "escuro") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+            d.classList.add("js"); d.setAttribute("data-tema", t); d.setAttribute("data-bs-theme", t === "escuro" ? "dark" : "light");
+        })(document.documentElement);
+    </script>
+    <title>Sobre nós | FUEGO MX</title>
+
+    <link rel="icon" type="image/svg+xml" href="images/marca/icone.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=DM+Sans:opsz,wght@9..40,400..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body data-pagina="sobre">
+<main id="conteudo">
+
+    <!-- ===== SEÇÃO: TÍTULO DA PÁGINA ===== -->
+    <section class="cabecalho-pagina">
+        <div class="container">
+            <h1>Sobre a FUEGO MX</h1>
+            <p>Uma cozinha jovem, urbana e apaixonada pela comida de rua mexicana.</p>
+        </div>
+    </section>
+
+    <!-- ===== SEÇÃO: NOSSA HISTÓRIA ===== -->
+    <section class="secao">
+        <div class="container">
+            <div class="row g-4 g-lg-5 align-items-center">
+                <div class="col-12 col-lg-6">
+                    <span class="secao__rotulo">Nossa história</span>
+                    <h2 class="secao__titulo">Nascemos da vontade de comer um <em>taco de verdade</em></h2>
+                    <p class="secao__texto mb-3">
+                        A FUEGO MX surgiu de uma viagem à Cidade do México e de uma pergunta simples: por que é tão difícil encontrar
+                        comida mexicana autêntica, feita na hora, sem sair de casa?
+                    </p>
+                    <p class="secao__texto mb-4">
+                        Montamos uma cozinha focada em delivery, com cardápio enxuto, ingredientes frescos e receitas que respeitam
+                        a tradição: tortilhas aquecidas na chapa, carnes marinadas por horas e molhos preparados diariamente.
+                    </p>
+                    <ul class="lista-check">
+                        <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> <span><strong>Missão:</strong> levar o sabor do México até você com qualidade e rapidez.</span></li>
+                        <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> <span><strong>Visão:</strong> ser a referência em comida mexicana por delivery na cidade.</span></li>
+                        <li><i class="bi bi-check-circle-fill" aria-hidden="true"></i> <span><strong>Valores:</strong> autenticidade, frescor, transparência e respeito ao cliente.</span></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="sobre-imagem" data-revelar>
+                        <img src="images/fotos/trompo.jpg" alt="Taqueiro fatiando carne al pastor direto do trompo" width="1400" height="1050" loading="lazy" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="faixa-foto" role="img" aria-label="Salão de uma cantina mexicana decorado com bandeirolas coloridas de papel picado"></div>
+
+    <!-- ===== SEÇÃO: O QUE VOCÊ PODE ESPERAR (fundo escuro) ===== -->
+    <section class="secao secao--escura">
+        <div class="container">
+            <div class="secao__cabecalho secao__cabecalho--centro">
+                <span class="secao__rotulo">Na prática</span>
+                <h2 class="secao__titulo">O que você pode esperar</h2>
+            </div>
+            <div class="diferenciais">
+                <div class="diferencial"><i class="bi bi-egg-fried" aria-hidden="true"></i><h3>Feito na hora</h3><p>Nada fica esperando: cada pedido começa a ser preparado quando é confirmado.</p></div>
+                <div class="diferencial"><i class="bi bi-recycle" aria-hidden="true"></i><h3>Embalagens recicláveis</h3><p>Usamos embalagens de papel kraft e evitamos plástico descartável.</p></div>
+                <div class="diferencial"><i class="bi bi-people" aria-hidden="true"></i><h3>Equipe local</h3><p>Cozinheiros e entregadores da própria região, com treinamento contínuo.</p></div>
+                <div class="diferencial"><i class="bi bi-chat-heart" aria-hidden="true"></i><h3>Atendimento próximo</h3><p>Fale conosco pelo site; respondemos todas as mensagens em até 1 dia útil.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SEÇÃO: CHAMADA FINAL (Bateu a fome?) ===== -->
+    <section class="secao">
+        <div class="container text-center">
+            <h2 class="secao__titulo">Bateu a fome?</h2>
+            <p class="secao__texto mb-4">Conheça o cardápio completo e faça seu pedido agora.</p>
+            <a class="btn btn-fx-primario btn-lg-fx" href="cardapio.html">Explorar Cardápio</a>
+        </div>
+    </section>
+
+</main>
+
+<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dados.js"></script>
+<script src="js/loja.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/site.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

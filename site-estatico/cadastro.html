@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!-- PÁGINA: Criar conta de cliente
+     Equivale a: src/FuegoMX/Views/Conta/Cadastro.cshtml
+     URL: cadastro.html?returnUrl=produto.html%3Fid%3D3
+     Script: js/paginas/cadastro.js · Estilos: css/site.css, seção "11. AUTENTICAÇÃO" (blocos .grupo-form, .regras-senha)
+     O formulário é dividido em 3 blocos numerados; o endereço é opcional e fica recolhido
+     (abre sozinho se houver erro nele). A lista de regras da senha é marcada pelo js/site.js. -->
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FUEGO MX: delivery de comida mexicana. Tacos, burritos, nachos e muito mais. O sabor do México chega até você." />
+    <meta name="theme-color" content="#13110F" />
+    <script>
+        // Tema claro/escuro aplicado ANTES do CSS para a página não piscar (o botão sol/lua está no js/site.js)
+        (function (d) {
+            var t; try { t = localStorage.getItem("fx_tema"); } catch (e) { }
+            if (t !== "claro" && t !== "escuro") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+            d.classList.add("js"); d.setAttribute("data-tema", t); d.setAttribute("data-bs-theme", t === "escuro" ? "dark" : "light");
+        })(document.documentElement);
+    </script>
+    <title>Criar conta | FUEGO MX</title>
+
+    <link rel="icon" type="image/svg+xml" href="images/marca/icone.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=DM+Sans:opsz,wght@9..40,400..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body data-pagina="cadastro">
+<main id="conteudo">
+    <div class="pagina-auth pagina-auth--cadastro">
+        <!-- Painel lateral com foto (era _PainelMarca.cshtml); o logo é colocado por js/paginas/cadastro.js -->
+        <aside class="auth-marca" aria-hidden="true">
+            <span data-logo-claro></span>
+            <div class="auth-marca__corpo">
+                <div>
+                    <p class="auth-marca__rotulo">Cozinha mexicana · Delivery</p>
+                    <h2>O sabor do <em>México</em> chega até você.</h2>
+                    <ul>
+                        <li><i class="bi bi-check-circle-fill"></i> Peça em poucos cliques</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Acompanhe o status do pedido</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Pagamento só na entrega</li>
+                    </ul>
+                </div>
+                <figure class="auth-marca__foto"><img src="images/fotos/trompo.jpg" alt="" loading="lazy" /></figure>
+            </div>
+        </aside>
+        <div class="auth-formulario">
+            <div class="auth-caixa auth-caixa--cadastro">
+                <!-- faixa da marca que só aparece no celular (o painel lateral some abaixo de 992px) -->
+                <div class="auth-topo-movel" aria-hidden="true">
+                    <figure><img src="images/fotos/trompo.jpg" alt="" width="96" height="96" /></figure>
+                    <p>Cozinha mexicana · Delivery</p>
+                </div>
+
+                <h1>Crie sua conta</h1>
+                <p class="subtitulo">Três passos rápidos. Seus dados ficam protegidos e você só faz isso uma vez.</p>
+
+                <form id="formCadastro" novalidate>
+                    <div data-resumo-erros class="validation-summary-valid" role="alert"></div>
+
+                    <!-- ===== 1. SEUS DADOS ===== -->
+                    <fieldset class="grupo-form">
+                        <legend class="grupo-form__titulo"><span class="grupo-form__numero">01</span> Seus dados</legend>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="NomeCompleto" class="form-label">Nome completo</label>
+                                <input id="NomeCompleto" name="NomeCompleto" class="form-control" autocomplete="name" placeholder="Maria da Silva" maxlength="120" />
+                                <span data-erro-para="NomeCompleto"></span>
+                            </div>
+                            <div class="col-12 col-sm-7">
+                                <label for="Email" class="form-label">E-mail</label>
+                                <input id="Email" name="Email" type="email" class="form-control" autocomplete="email" inputmode="email" placeholder="voce@exemplo.com" maxlength="256" />
+                                <span data-erro-para="Email"></span>
+                            </div>
+                            <div class="col-12 col-sm-5">
+                                <label for="Telefone" class="form-label">Telefone (WhatsApp)</label>
+                                <input id="Telefone" name="Telefone" class="form-control" type="tel" autocomplete="tel" placeholder="(11) 98765-4321" data-mascara="telefone" />
+                                <span data-erro-para="Telefone"></span>
+                            </div>
+                            <div class="col-12 col-sm-7">
+                                <label for="Cpf" class="form-label">CPF</label>
+                                <input id="Cpf" name="Cpf" class="form-control" inputmode="numeric" maxlength="14" autocomplete="off" placeholder="000.000.000-00" data-mascara="cpf" />
+                                <span data-erro-para="Cpf"></span>
+                            </div>
+                            <div class="col-12 col-sm-5">
+                                <label for="DataNascimento" class="form-label">Data de nascimento</label>
+                                <input id="DataNascimento" name="DataNascimento" class="form-control" type="date" autocomplete="bday" />
+                                <span data-erro-para="DataNascimento"></span>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- ===== 2. ENDEREÇO (opcional, recolhido) ===== -->
+                    <fieldset class="grupo-form">
+                        <legend class="visually-hidden">Endereço de entrega (opcional)</legend>
+                        <details class="grupo-form__recolhivel">
+                            <summary class="grupo-form__titulo">
+                                <span class="grupo-form__numero">02</span> Endereço de entrega
+                                <span class="grupo-form__opcional">opcional</span>
+                                <i class="bi bi-chevron-down grupo-form__seta" aria-hidden="true"></i>
+                            </summary>
+                            <p class="form-text mt-0 mb-3">Se preferir, informe na hora do primeiro pedido. Com o CEP, o resto é preenchido sozinho.</p>
+                            <!-- os campos (CEP, rua, número...) são colocados por js/layout.js → Fx.camposEndereco() -->
+                            <div class="row g-3" data-campos-endereco></div>
+                        </details>
+                    </fieldset>
+
+                    <!-- ===== 3. SENHA ===== -->
+                    <fieldset class="grupo-form">
+                        <legend class="grupo-form__titulo"><span class="grupo-form__numero">03</span> Senha de acesso</legend>
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-6">
+                                <label for="Senha" class="form-label">Senha</label>
+                                <div class="campo-senha">
+                                    <input id="Senha" name="Senha" type="password" class="form-control" autocomplete="new-password" aria-describedby="regrasSenha" />
+                                    <button type="button" class="campo-senha__alternar" data-alternar-senha aria-label="Mostrar senha"><i class="bi bi-eye" aria-hidden="true"></i></button>
+                                </div>
+                                <span data-erro-para="Senha"></span>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <label for="ConfirmarSenha" class="form-label">Confirmar senha</label>
+                                <div class="campo-senha">
+                                    <input id="ConfirmarSenha" name="ConfirmarSenha" type="password" class="form-control" autocomplete="new-password" />
+                                    <button type="button" class="campo-senha__alternar" data-alternar-senha aria-label="Mostrar senha"><i class="bi bi-eye" aria-hidden="true"></i></button>
+                                </div>
+                                <span data-erro-para="ConfirmarSenha"></span>
+                            </div>
+                            <div class="col-12">
+                                <!-- cada regra fica verde ao ser cumprida (js/site.js, "regras da senha") -->
+                                <ul class="regras-senha" id="regrasSenha" data-regras-senha="Senha">
+                                    <li data-regra="tamanho">8 caracteres ou mais</li>
+                                    <li data-regra="maiuscula">Uma letra maiúscula</li>
+                                    <li data-regra="minuscula">Uma letra minúscula</li>
+                                    <li data-regra="numero">Um número</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="form-check mt-4">
+                        <input id="AceitoTermos" name="AceitoTermos" type="checkbox" class="form-check-input" />
+                        <label for="AceitoTermos" class="form-check-label">
+                            Li e aceito os <a href="privacidade.html" target="_blank">termos de uso e a política de privacidade</a>
+                        </label>
+                    </div>
+                    <span data-erro-para="AceitoTermos"></span>
+
+                    <button type="submit" class="btn btn-fx-primario btn-lg-fx w-100 mt-4">
+                        <i class="bi bi-person-plus" aria-hidden="true"></i> Criar minha conta
+                    </button>
+                </form>
+
+                <div class="divisor-texto">Já tem conta?</div>
+                <a class="btn btn-fx-contorno w-100" href="login.html" id="linkLogin">Entrar</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dados.js"></script>
+<script src="js/loja.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/paginas/cadastro.js"></script>
+<script src="js/site.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

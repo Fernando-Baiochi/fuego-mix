@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- PÁGINA: Detalhes de um pedido com linha do tempo do status
+     Equivale a: src/FuegoMX/Views/Pedidos/Detalhes.cshtml
+     URL: pedido.html?id=1001
+     Script: js/paginas/pedido.js · Estilos: css/site.css, seção "10. PEDIDOS E PERFIL" -->
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FUEGO MX: delivery de comida mexicana. Tacos, burritos, nachos e muito mais. O sabor do México chega até você." />
+    <meta name="theme-color" content="#13110F" />
+    <script>
+        // Tema claro/escuro aplicado ANTES do CSS para a página não piscar (o botão sol/lua está no js/site.js)
+        (function (d) {
+            var t; try { t = localStorage.getItem("fx_tema"); } catch (e) { }
+            if (t !== "claro" && t !== "escuro") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+            d.classList.add("js"); d.setAttribute("data-tema", t); d.setAttribute("data-bs-theme", t === "escuro" ? "dark" : "light");
+        })(document.documentElement);
+    </script>
+    <title>Pedido | FUEGO MX</title>
+
+    <link rel="icon" type="image/svg+xml" href="images/marca/icone.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=DM+Sans:opsz,wght@9..40,400..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body data-pagina="pedidos">
+<main id="conteudo">
+    <!-- Conteúdo montado por js/paginas/pedido.js -->
+    <div class="container py-4 py-lg-5" id="paginaPedido"></div>
+</main>
+
+<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dados.js"></script>
+<script src="js/loja.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/entregador.js"></script>
+<script src="js/paginas/pedido.js"></script>
+<script src="js/site.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

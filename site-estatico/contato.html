@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- PÁGINA: Formulário de contato + dados da loja
+     Equivale a: src/FuegoMX/Views/Home/Contato.cshtml
+     Script: js/paginas/contato.js · Estilos: css/site.css, seção "3. FORMULÁRIOS" -->
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FUEGO MX: delivery de comida mexicana. Tacos, burritos, nachos e muito mais. O sabor do México chega até você." />
+    <meta name="theme-color" content="#13110F" />
+    <script>
+        // Tema claro/escuro aplicado ANTES do CSS para a página não piscar (o botão sol/lua está no js/site.js)
+        (function (d) {
+            var t; try { t = localStorage.getItem("fx_tema"); } catch (e) { }
+            if (t !== "claro" && t !== "escuro") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+            d.classList.add("js"); d.setAttribute("data-tema", t); d.setAttribute("data-bs-theme", t === "escuro" ? "dark" : "light");
+        })(document.documentElement);
+    </script>
+    <title>Contato | FUEGO MX</title>
+
+    <link rel="icon" type="image/svg+xml" href="images/marca/icone.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=DM+Sans:opsz,wght@9..40,400..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body data-pagina="contato">
+<main id="conteudo">
+
+    <section class="cabecalho-pagina">
+        <div class="container">
+            <h1>Fale com a gente</h1>
+            <p>Dúvidas, sugestões ou elogios? Envie uma mensagem; respondemos em até 1 dia útil.</p>
+        </div>
+    </section>
+
+    <div class="container py-4 py-lg-5">
+        <div class="row g-4 g-lg-5">
+            <div class="col-12 col-lg-5">
+                <div class="d-grid gap-4">
+                    <div class="contato-card">
+                        <span class="icone"><i class="bi bi-geo-alt" aria-hidden="true"></i></span>
+                        <div><h3>Endereço da cozinha</h3><p>Rua das Pimentas, 123, Centro<br />Somente delivery, sem atendimento no local</p></div>
+                    </div>
+                    <div class="contato-card">
+                        <span class="icone"><i class="bi bi-telephone" aria-hidden="true"></i></span>
+                        <div><h3>Telefone</h3><p>(11) 4000-0000</p></div>
+                    </div>
+                    <div class="contato-card">
+                        <span class="icone"><i class="bi bi-envelope" aria-hidden="true"></i></span>
+                        <div><h3>E-mail</h3><p>contato@fuegomx.com.br</p></div>
+                    </div>
+                    <div class="contato-card">
+                        <span class="icone"><i class="bi bi-clock" aria-hidden="true"></i></span>
+                        <div><h3>Horário</h3><p>Terça a domingo, das 11h às 23h</p></div>
+                    </div>
+                    <p class="small texto-suave mb-0">FUEGO MX é uma empresa fictícia criada para um trabalho escolar. Os dados de contato acima são ilustrativos.</p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-7">
+                <section class="cartao" aria-labelledby="form-contato-titulo">
+                    <h2 class="cartao__titulo" id="form-contato-titulo"><i class="bi bi-send" aria-hidden="true"></i> Envie sua mensagem</h2>
+                    <form id="formContato" novalidate>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="Nome" class="form-label">Nome</label>
+                                <input id="Nome" name="Nome" class="form-control" autocomplete="name" maxlength="120" />
+                                <span data-erro-para="Nome"></span>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="Email" class="form-label">E-mail</label>
+                                <input id="Email" name="Email" type="email" class="form-control" autocomplete="email" />
+                                <span data-erro-para="Email"></span>
+                            </div>
+                            <div class="col-12">
+                                <label for="Assunto" class="form-label">Assunto</label>
+                                <select id="Assunto" name="Assunto" class="form-select">
+                                    <option value="">Selecione...</option>
+                                    <option>Dúvida sobre pedido</option>
+                                    <option>Sugestão</option>
+                                    <option>Reclamação</option>
+                                    <option>Elogio</option>
+                                    <option>Parcerias</option>
+                                    <option>Outro</option>
+                                </select>
+                                <span data-erro-para="Assunto"></span>
+                            </div>
+                            <div class="col-12">
+                                <label for="Mensagem" class="form-label">Mensagem</label>
+                                <textarea id="Mensagem" name="Mensagem" class="form-control" rows="5" maxlength="2000"></textarea>
+                                <span data-erro-para="Mensagem"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-fx-primario mt-4"><i class="bi bi-send" aria-hidden="true"></i> Enviar mensagem</button>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dados.js"></script>
+<script src="js/loja.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/paginas/contato.js"></script>
+<script src="js/site.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

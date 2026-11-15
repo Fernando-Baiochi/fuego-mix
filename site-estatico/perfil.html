@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!-- PÁGINA: Meu perfil: editar dados do cliente
+     Equivale a: src/FuegoMX/Views/Perfil/Index.cshtml
+     Script: js/paginas/perfil.js · Estilos: css/site.css, seção "10. PEDIDOS E PERFIL" -->
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FUEGO MX: delivery de comida mexicana. Tacos, burritos, nachos e muito mais. O sabor do México chega até você." />
+    <meta name="theme-color" content="#13110F" />
+    <script>
+        // Tema claro/escuro aplicado ANTES do CSS para a página não piscar (o botão sol/lua está no js/site.js)
+        (function (d) {
+            var t; try { t = localStorage.getItem("fx_tema"); } catch (e) { }
+            if (t !== "claro" && t !== "escuro") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+            d.classList.add("js"); d.setAttribute("data-tema", t); d.setAttribute("data-bs-theme", t === "escuro" ? "dark" : "light");
+        })(document.documentElement);
+    </script>
+    <title>Meu perfil | FUEGO MX</title>
+
+    <link rel="icon" type="image/svg+xml" href="images/marca/icone.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=DM+Sans:opsz,wght@9..40,400..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body data-pagina="perfil">
+<main id="conteudo">
+    <section class="cabecalho-pagina">
+        <div class="container">
+            <h1>Meu perfil</h1>
+            <p>Mantenha seus dados atualizados para agilizar os próximos pedidos.</p>
+        </div>
+    </section>
+
+    <div class="container py-4 py-lg-5">
+        <div class="row g-4">
+            <div class="col-12 col-lg-4" id="menuPerfil"></div>
+            <div class="col-12 col-lg-8">
+                <section class="cartao" aria-labelledby="dados-titulo">
+                    <h2 class="cartao__titulo" id="dados-titulo"><i class="bi bi-pencil-square" aria-hidden="true"></i> Editar meus dados</h2>
+                    <form id="formPerfil" novalidate>
+                        <div data-resumo-erros class="validation-summary-valid" role="alert"></div>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="NomeCompleto" class="form-label">Nome completo</label>
+                                <input id="NomeCompleto" name="NomeCompleto" class="form-control" autocomplete="name" maxlength="120" />
+                                <span data-erro-para="NomeCompleto"></span>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <label for="emailSomenteLeitura" class="form-label">E-mail (login)</label>
+                                <input id="emailSomenteLeitura" class="form-control" readonly aria-describedby="dicaEmail" />
+                                <div class="form-text" id="dicaEmail">O e-mail é usado para entrar e não pode ser alterado aqui.</div>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <label for="Telefone" class="form-label">Telefone (WhatsApp)</label>
+                                <input id="Telefone" name="Telefone" class="form-control" type="tel" autocomplete="tel" data-mascara="telefone" />
+                                <span data-erro-para="Telefone"></span>
+                            </div>
+                            <!-- CPF: só pode ser informado uma vez (contas antigas foram criadas sem CPF); depois fica somente leitura -->
+                            <div class="col-12 col-md-7">
+                                <label for="Cpf" class="form-label">CPF</label>
+                                <input id="Cpf" name="Cpf" class="form-control" inputmode="numeric" maxlength="14" placeholder="000.000.000-00" data-mascara="cpf" aria-describedby="dicaCpf" />
+                                <div class="form-text" id="dicaCpf">Depois de salvo, o CPF não pode ser alterado.</div>
+                                <span data-erro-para="Cpf"></span>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <label for="DataNascimento" class="form-label">Data de nascimento</label>
+                                <input id="DataNascimento" name="DataNascimento" class="form-control" type="date" autocomplete="bday" />
+                                <span data-erro-para="DataNascimento"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <p class="form-label mb-0 mt-2">Endereço de entrega</p>
+                            </div>
+                            <!-- campos colocados por js/layout.js → Fx.camposEndereco() (era _CamposEndereco.cshtml) -->
+                            <div class="col-12"><div class="row g-3" data-campos-endereco></div></div>
+                            <div class="col-12">
+                                <p class="small texto-suave mb-0"><i class="bi bi-calendar-check" aria-hidden="true"></i> Cadastrado em <span id="dataCadastro"></span></p>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mt-4">
+                            <button type="submit" class="btn btn-fx-primario"><i class="bi bi-check2" aria-hidden="true"></i> Salvar alterações</button>
+                            <a class="btn btn-fx-contorno" href="alterar-senha.html"><i class="bi bi-key" aria-hidden="true"></i> Alterar senha</a>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dados.js"></script>
+<script src="js/loja.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/paginas/perfil.js"></script>
+<script src="js/site.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

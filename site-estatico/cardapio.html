@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- PÁGINA: Cardápio: busca, filtros, chips de categoria e grade de produtos
+     Equivale a: src/FuegoMX/Views/Cardapio/Index.cshtml
+     URL: cardapio.html?busca=taco&categoriaId=1&precoMin=10&precoMax=30&ordem=preco_asc
+     Script: js/paginas/cardapio.js · Estilos: css/site.css, seção "7. CARDÁPIO E FILTROS" -->
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FUEGO MX: delivery de comida mexicana. Tacos, burritos, nachos e muito mais. O sabor do México chega até você." />
+    <meta name="theme-color" content="#13110F" />
+    <script>
+        // Tema claro/escuro aplicado ANTES do CSS para a página não piscar (o botão sol/lua está no js/site.js)
+        (function (d) {
+            var t; try { t = localStorage.getItem("fx_tema"); } catch (e) { }
+            if (t !== "claro" && t !== "escuro") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+            d.classList.add("js"); d.setAttribute("data-tema", t); d.setAttribute("data-bs-theme", t === "escuro" ? "dark" : "light");
+        })(document.documentElement);
+    </script>
+    <title>Cardápio | FUEGO MX</title>
+
+    <link rel="icon" type="image/svg+xml" href="images/marca/icone.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=DM+Sans:opsz,wght@9..40,400..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body data-pagina="cardapio">
+<main id="conteudo">
+
+    <section class="cabecalho-pagina pb-5">
+        <div class="container pb-3">
+            <nav class="trilha" aria-label="Você está em">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Início</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cardápio</li>
+                </ol>
+            </nav>
+            <h1 id="tituloCardapio">Nosso cardápio</h1>
+            <p>Tudo preparado na hora. Use a busca e os filtros para encontrar seu prato favorito.</p>
+        </div>
+    </section>
+
+    <div class="container pb-5">
+        <!-- Formulário GET: os filtros ficam na URL, então a busca pode ser compartilhada -->
+        <form method="get" action="cardapio.html" class="barra-busca" role="search" aria-label="Buscar no cardápio" id="formFiltros">
+            <input type="hidden" name="categoriaId" id="categoriaId" disabled />
+            <div class="campo-busca">
+                <label for="busca" class="visually-hidden">Buscar produto pelo nome</label>
+                <i class="bi bi-search" aria-hidden="true"></i>
+                <input type="search" class="form-control" id="busca" name="busca"
+                       placeholder="Buscar tacos, burritos, nachos..." maxlength="60" autocomplete="off" />
+            </div>
+            <div>
+                <label for="ordem" class="visually-hidden">Ordenar por</label>
+                <select class="form-select" id="ordem" name="ordem">
+                    <option value="">Mais populares</option>
+                    <option value="preco_asc">Menor preço</option>
+                    <option value="preco_desc">Maior preço</option>
+                    <option value="nome_asc">Nome (A–Z)</option>
+                    <option value="nome_desc">Nome (Z–A)</option>
+                </select>
+            </div>
+            <button class="btn btn-fx-contorno" type="button" data-bs-toggle="collapse" data-bs-target="#painelPreco"
+                    aria-expanded="false" aria-controls="painelPreco" id="botaoPreco">
+                <i class="bi bi-sliders" aria-hidden="true"></i> Preço
+            </button>
+            <button class="btn btn-fx-primario" type="submit"><i class="bi bi-search" aria-hidden="true"></i> Buscar</button>
+
+            <div class="collapse" id="painelPreco" style="grid-column: 1 / -1;">
+                <div class="row g-2 pt-2 align-items-end">
+                    <div class="col-6 col-md-3">
+                        <label for="precoMin" class="form-label">Preço mínimo (R$)</label>
+                        <input type="number" class="form-control" id="precoMin" name="precoMin" min="0" step="1" inputmode="decimal" placeholder="0" />
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <label for="precoMax" class="form-label">Preço máximo (R$)</label>
+                        <input type="number" class="form-control" id="precoMax" name="precoMax" min="0" step="1" inputmode="decimal" placeholder="100" />
+                    </div>
+                    <div class="col-12 col-md-6 d-flex flex-wrap gap-2">
+                        <button type="button" class="chip" data-faixa-preco="0-20">Até R$ 20</button>
+                        <button type="button" class="chip" data-faixa-preco="20-35">R$ 20 a 35</button>
+                        <button type="button" class="chip" data-faixa-preco="35-">Acima de R$ 35</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Categorias (preenchidas por js/paginas/cardapio.js) -->
+        <nav class="chips mt-4" aria-label="Filtrar por categoria" id="chipsCategorias"></nav>
+
+        <div class="resumo-busca mt-2">
+            <p aria-live="polite" id="resumoBusca"></p>
+            <a class="btn btn-fx-link btn-sm-fx" href="cardapio.html" id="limparFiltros" hidden><i class="bi bi-x-circle" aria-hidden="true"></i> Limpar filtros</a>
+        </div>
+
+        <div id="resultado"></div>
+    </div>
+
+</main>
+
+<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dados.js"></script>
+<script src="js/loja.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/paginas/cardapio.js"></script>
+<script src="js/site.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

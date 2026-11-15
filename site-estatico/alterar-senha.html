@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- PÁGINA: Alterar senha
+     Equivale a: src/FuegoMX/Views/Perfil/AlterarSenha.cshtml
+     Script: js/paginas/alterar-senha.js · Estilos: css/site.css, seção "10. PEDIDOS E PERFIL" -->
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FUEGO MX: delivery de comida mexicana. Tacos, burritos, nachos e muito mais. O sabor do México chega até você." />
+    <meta name="theme-color" content="#13110F" />
+    <script>
+        // Tema claro/escuro aplicado ANTES do CSS para a página não piscar (o botão sol/lua está no js/site.js)
+        (function (d) {
+            var t; try { t = localStorage.getItem("fx_tema"); } catch (e) { }
+            if (t !== "claro" && t !== "escuro") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+            d.classList.add("js"); d.setAttribute("data-tema", t); d.setAttribute("data-bs-theme", t === "escuro" ? "dark" : "light");
+        })(document.documentElement);
+    </script>
+    <title>Alterar senha | FUEGO MX</title>
+
+    <link rel="icon" type="image/svg+xml" href="images/marca/icone.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=DM+Sans:opsz,wght@9..40,400..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body data-pagina="senha">
+<main id="conteudo">
+    <section class="cabecalho-pagina">
+        <div class="container">
+            <h1>Alterar senha</h1>
+            <p>Por segurança, confirme sua senha atual antes de definir uma nova.</p>
+        </div>
+    </section>
+
+    <div class="container py-4 py-lg-5">
+        <div class="row g-4">
+            <div class="col-12 col-lg-4" id="menuPerfil"></div>
+            <div class="col-12 col-lg-8">
+                <section class="cartao" aria-labelledby="senha-titulo">
+                    <h2 class="cartao__titulo" id="senha-titulo"><i class="bi bi-shield-lock" aria-hidden="true"></i> Nova senha</h2>
+                    <form id="formSenha" novalidate style="max-width: 480px">
+                        <div data-resumo-erros class="validation-summary-valid" role="alert"></div>
+                        <div class="mb-3">
+                            <label for="SenhaAtual" class="form-label">Senha atual</label>
+                            <div class="campo-senha">
+                                <input id="SenhaAtual" name="SenhaAtual" type="password" class="form-control" autocomplete="current-password" />
+                                <button type="button" class="campo-senha__alternar" data-alternar-senha aria-label="Mostrar senha"><i class="bi bi-eye" aria-hidden="true"></i></button>
+                            </div>
+                            <span data-erro-para="SenhaAtual"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="NovaSenha" class="form-label">Nova senha</label>
+                            <div class="campo-senha">
+                                <input id="NovaSenha" name="NovaSenha" type="password" class="form-control" autocomplete="new-password" aria-describedby="dicaNovaSenha" />
+                                <button type="button" class="campo-senha__alternar" data-alternar-senha aria-label="Mostrar senha"><i class="bi bi-eye" aria-hidden="true"></i></button>
+                            </div>
+                            <div class="form-text" id="dicaNovaSenha">A senha deve ter no mínimo 8 caracteres, com letra maiúscula, letra minúscula e número.</div>
+                            <span data-erro-para="NovaSenha"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label for="ConfirmarSenha" class="form-label">Confirmar nova senha</label>
+                            <input id="ConfirmarSenha" name="ConfirmarSenha" type="password" class="form-control" autocomplete="new-password" />
+                            <span data-erro-para="ConfirmarSenha"></span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="submit" class="btn btn-fx-primario"><i class="bi bi-check2" aria-hidden="true"></i> Alterar senha</button>
+                            <a class="btn btn-fx-contorno" href="perfil.html">Cancelar</a>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dados.js"></script>
+<script src="js/loja.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/paginas/alterar-senha.js"></script>
+<script src="js/site.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

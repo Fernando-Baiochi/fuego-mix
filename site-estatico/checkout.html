@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!-- PÁGINA: Finalizar pedido: endereço, pagamento e confirmação
+     Equivale a: src/FuegoMX/Views/Checkout/Index.cshtml
+     Script: js/paginas/checkout.js · Estilos: css/site.css, seção "9. CARRINHO E CHECKOUT" -->
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FUEGO MX: delivery de comida mexicana. Tacos, burritos, nachos e muito mais. O sabor do México chega até você." />
+    <meta name="theme-color" content="#13110F" />
+    <script>
+        // Tema claro/escuro aplicado ANTES do CSS para a página não piscar (o botão sol/lua está no js/site.js)
+        (function (d) {
+            var t; try { t = localStorage.getItem("fx_tema"); } catch (e) { }
+            if (t !== "claro" && t !== "escuro") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+            d.classList.add("js"); d.setAttribute("data-tema", t); d.setAttribute("data-bs-theme", t === "escuro" ? "dark" : "light");
+        })(document.documentElement);
+    </script>
+    <title>Finalizar pedido | FUEGO MX</title>
+
+    <link rel="icon" type="image/svg+xml" href="images/marca/icone.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=DM+Sans:opsz,wght@9..40,400..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body data-pagina="checkout">
+<main id="conteudo">
+    <div class="container py-4 py-lg-5">
+        <ol class="etapas" aria-label="Etapas da compra">
+            <li class="feita"><a href="carrinho.html" class="text-reset">Carrinho</a></li>
+            <li class="atual" aria-current="step">Entrega e pagamento</li>
+            <li>Confirmação</li>
+        </ol>
+
+        <h1 class="secao__titulo">Finalizar pedido</h1>
+        <p class="texto-suave mb-4">Confira seus dados. Os valores abaixo foram calculados com os preços atuais do cardápio.</p>
+
+        <form id="formCheckout" novalidate>
+            <div data-resumo-erros class="validation-summary-valid" role="alert"></div>
+
+            <div class="layout-compra">
+                <div class="d-grid gap-4">
+                    <section class="cartao" aria-labelledby="sec-dados">
+                        <h2 class="cartao__titulo" id="sec-dados"><i class="bi bi-person" aria-hidden="true"></i> Dados do cliente</h2>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-7">
+                                <label for="NomeCliente" class="form-label">Nome de quem recebe</label>
+                                <input id="NomeCliente" name="NomeCliente" class="form-control" autocomplete="name" maxlength="120" />
+                                <span data-erro-para="NomeCliente"></span>
+                            </div>
+                            <div class="col-12 col-md-5">
+                                <label for="Telefone" class="form-label">Telefone para contato</label>
+                                <input id="Telefone" name="Telefone" class="form-control" type="tel" autocomplete="tel" placeholder="(11) 98765-4321" data-mascara="telefone" />
+                                <span data-erro-para="Telefone"></span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="cartao" aria-labelledby="sec-endereco">
+                        <h2 class="cartao__titulo" id="sec-endereco"><i class="bi bi-geo-alt" aria-hidden="true"></i> Endereço de entrega</h2>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="EnderecoEntrega" class="form-label">Endereço de entrega</label>
+                                <input id="EnderecoEntrega" name="EnderecoEntrega" class="form-control" autocomplete="street-address" placeholder="Rua, número, bairro e cidade" maxlength="250" />
+                                <span data-erro-para="EnderecoEntrega"></span>
+                            </div>
+                            <div class="col-12">
+                                <label for="Complemento" class="form-label">Complemento (opcional)</label>
+                                <input id="Complemento" name="Complemento" class="form-control" placeholder="Apartamento, bloco, ponto de referência" maxlength="100" />
+                                <span data-erro-para="Complemento"></span>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input id="SalvarEnderecoNoPerfil" name="SalvarEnderecoNoPerfil" type="checkbox" class="form-check-input" />
+                                    <label for="SalvarEnderecoNoPerfil" class="form-check-label">Salvar este endereço no meu perfil</label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="cartao" aria-labelledby="sec-pagamento">
+                        <h2 class="cartao__titulo" id="sec-pagamento"><i class="bi bi-wallet2" aria-hidden="true"></i> Forma de pagamento</h2>
+                        <fieldset>
+                            <legend class="visually-hidden">Escolha a forma de pagamento</legend>
+                            <div class="opcoes-pagamento">
+                                <div class="opcao-pagamento">
+                                    <input type="radio" id="pag-0" name="FormaPagamento" value="DinheiroNaEntrega" data-forma-pagamento />
+                                    <label for="pag-0">
+                                        <i class="bi bi-cash-coin" aria-hidden="true"></i>
+                                        <strong>Dinheiro na entrega</strong>
+                                        <small>Pague em dinheiro ao receber. Informe se precisa de troco.</small>
+                                    </label>
+                                </div>
+                                <div class="opcao-pagamento">
+                                    <input type="radio" id="pag-1" name="FormaPagamento" value="CartaoNaEntrega" data-forma-pagamento />
+                                    <label for="pag-1">
+                                        <i class="bi bi-credit-card" aria-hidden="true"></i>
+                                        <strong>Cartão na entrega</strong>
+                                        <small>Crédito ou débito na maquininha do entregador.</small>
+                                    </label>
+                                </div>
+                                <div class="opcao-pagamento">
+                                    <input type="radio" id="pag-2" name="FormaPagamento" value="PixDemonstrativo" data-forma-pagamento />
+                                    <label for="pag-2">
+                                        <i class="bi bi-qr-code" aria-hidden="true"></i>
+                                        <strong>PIX (demonstrativo)</strong>
+                                        <small>Opção ilustrativa: nenhum pagamento é processado.</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <span data-erro-para="FormaPagamento"></span>
+
+                        <div class="mt-3" data-somente-pagamento="DinheiroNaEntrega" hidden>
+                            <label for="TrocoPara" class="form-label">Troco para (opcional)</label>
+                            <input id="TrocoPara" name="TrocoPara" class="form-control" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex.: 100" style="max-width: 220px" />
+                            <div class="form-text">Deixe em branco se não precisar de troco.</div>
+                            <span data-erro-para="TrocoPara"></span>
+                        </div>
+
+                        <div class="alert alert-fx alert-fx--info mt-3" data-somente-pagamento="PixDemonstrativo" hidden role="note">
+                            <i class="bi bi-info-circle-fill" aria-hidden="true"></i>
+                            <span><strong>Pagamento via PIX.</strong> O QR Code para pagar aparece na confirmação do pedido.</span>
+                        </div>
+                    </section>
+
+                    <section class="cartao" aria-labelledby="sec-obs">
+                        <h2 class="cartao__titulo" id="sec-obs"><i class="bi bi-chat-left-text" aria-hidden="true"></i> Observações</h2>
+                        <label for="Observacoes" class="form-label">Observações (opcional)</label>
+                        <textarea id="Observacoes" name="Observacoes" class="form-control" rows="3" maxlength="500" placeholder="Ex.: sem cebola, molho à parte, interfone quebrado..."></textarea>
+                        <span data-erro-para="Observacoes"></span>
+                    </section>
+                </div>
+
+                <aside class="resumo-pedido" aria-labelledby="resumo-titulo">
+                    <h2 id="resumo-titulo">Seu pedido</h2>
+                    <!-- Resumo dos itens (era _ResumoItens.cshtml), montado por js/paginas/checkout.js -->
+                    <div id="resumoItens"></div>
+                    <button type="submit" class="btn btn-fx-primario btn-lg-fx">
+                        <i class="bi bi-check2-circle" aria-hidden="true"></i> Confirmar pedido
+                    </button>
+                    <a class="btn btn-fx-link w-100 mt-2" href="carrinho.html">Voltar ao carrinho</a>
+                </aside>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dados.js"></script>
+<script src="js/loja.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/paginas/checkout.js"></script>
+<script src="js/site.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

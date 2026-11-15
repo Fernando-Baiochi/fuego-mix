@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!-- PÁGINA: Página inicial: abertura, categorias, mais vendidos, nossa cozinha, como funciona, faixa de cupom
+     Equivale a: src/FuegoMX/Views/Home/Index.cshtml
+     Script: js/paginas/inicio.js · Estilos: css/site.css, seção "6. HOME" -->
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FUEGO MX: delivery de comida mexicana. Tacos, burritos, nachos e muito mais. O sabor do México chega até você." />
+    <meta name="theme-color" content="#13110F" />
+    <script>
+        // Tema claro/escuro aplicado ANTES do CSS para a página não piscar (o botão sol/lua está no js/site.js)
+        (function (d) {
+            var t; try { t = localStorage.getItem("fx_tema"); } catch (e) { }
+            if (t !== "claro" && t !== "escuro") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro";
+            d.classList.add("js"); d.setAttribute("data-tema", t); d.setAttribute("data-bs-theme", t === "escuro" ? "dark" : "light");
+        })(document.documentElement);
+    </script>
+    <title>FUEGO MX | O sabor do México chega até você</title>
+
+    <link rel="icon" type="image/svg+xml" href="images/marca/icone.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=DM+Sans:opsz,wght@9..40,400..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="preload" as="image" href="images/fotos/mesa.jpg" fetchpriority="high" />
+</head>
+<body data-pagina="inicio">
+<main id="conteudo">
+
+    <!-- ===== SEÇÃO: ABERTURA (texto à esquerda, foto emoldurada à direita) ===== -->
+    <section class="abertura" aria-labelledby="abertura-titulo">
+        <div class="container">
+            <div class="abertura__grade">
+                <div class="abertura__conteudo">
+                    <span class="secao__rotulo">Cozinha mexicana · Delivery</span>
+                    <h1 class="abertura__titulo" id="abertura-titulo">Cozinha mexicana <em>de verdade</em>, feita na hora.</h1>
+                    <p class="abertura__subtitulo">
+                        Tacos, burritos e quesadillas preparados no momento do pedido, com ingredientes frescos
+                        e receitas tradicionais. Na sua casa em cerca de 40 minutos.
+                    </p>
+                    <div class="abertura__acoes">
+                        <a class="btn btn-fx-primario btn-lg-fx" href="cardapio.html">
+                            Ver cardápio <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-fx-contorno btn-lg-fx" href="#como-funciona">Como funciona</a>
+                    </div>
+                    <ul class="abertura__fatos">
+                        <li><strong id="totalProdutos">16 pratos</strong> no cardápio</li>
+                        <li><strong>~40 min</strong> de entrega</li>
+                        <li><strong>Frete grátis</strong> acima de <span id="freteGratis">R$ 80</span></li>
+                    </ul>
+                </div>
+                <div class="abertura__midia">
+                    <div class="abertura__foto">
+                        <img src="images/fotos/mesa.jpg" alt="Tacos de carne com salsas, guacamole e arroz sobre mesa de azulejos mexicanos" width="1600" height="980" fetchpriority="high" />
+                    </div>
+                    <!-- Cartão "O mais pedido": preenchido por js/paginas/inicio.js -->
+                    <a class="abertura__destaque" id="pratoDaCasa" hidden></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SEÇÃO: CATEGORIAS ===== -->
+    <section class="secao" aria-labelledby="categorias-titulo">
+        <div class="container">
+            <div class="secao__cabecalho" data-revelar>
+                <span class="secao__rotulo">O cardápio</span>
+                <h2 class="secao__titulo" id="categorias-titulo">Do que você tem <em>fome</em> hoje?</h2>
+            </div>
+            <div class="trilho-categorias" id="listaCategorias" data-revelar></div>
+        </div>
+    </section>
+
+    <!-- ===== SEÇÃO: MAIS VENDIDOS ===== -->
+    <section class="secao secao--clara" aria-labelledby="vendidos-titulo">
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4 mb-lg-5" data-revelar>
+                <div class="secao__cabecalho mb-0">
+                    <span class="secao__rotulo">Mais vendidos</span>
+                    <h2 class="secao__titulo mb-0" id="vendidos-titulo">Os favoritos <em>da casa</em></h2>
+                </div>
+                <a class="btn btn-fx-contorno" href="cardapio.html">Ver cardápio completo <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="grade-produtos" id="maisVendidos" data-revelar></div>
+        </div>
+    </section>
+
+    <!-- ===== SEÇÃO: NOSSA COZINHA ===== -->
+    <section class="secao" id="nossa-cozinha" aria-labelledby="cozinha-titulo">
+        <div class="container">
+            <div class="cozinha">
+                <div class="cozinha__fotos" data-revelar>
+                    <div class="cozinha__foto-principal">
+                        <img src="images/fotos/trompo.jpg" alt="Taqueiro fatiando carne al pastor direto do trompo" loading="lazy" width="1400" height="1050" />
+                    </div>
+                    <div class="cozinha__foto-detalhe">
+                        <img src="images/produtos/guacamole-nachos.jpg" alt="Guacamole, salsas e totopos servidos na mesa" loading="lazy" width="1200" height="900" />
+                    </div>
+                    <p class="cozinha__legenda"><strong>Al pastor no trompo</strong>como nas taquerias da Cidade do México</p>
+                </div>
+                <div data-revelar>
+                    <span class="secao__rotulo">Nossa cozinha</span>
+                    <h2 class="secao__titulo" id="cozinha-titulo">Comida mexicana de verdade, <em>sem atalhos</em></h2>
+                    <p class="secao__texto">Cada detalhe é pensado para que a experiência em casa seja tão boa quanto sentar no balcão de uma taqueria.</p>
+                    <ul class="cozinha__itens">
+                        <li>
+                            <i class="bi bi-flower1" aria-hidden="true"></i>
+                            <div><h3>Ingredientes frescos</h3><p>Guacamole e pico de gallo preparados diariamente, nunca industrializados.</p></div>
+                        </li>
+                        <li>
+                            <i class="bi bi-book" aria-hidden="true"></i>
+                            <div><h3>Receitas autênticas</h3><p>Molhos e marinadas inspirados nas taquerias da Cidade do México.</p></div>
+                        </li>
+                        <li>
+                            <i class="bi bi-thermometer-high" aria-hidden="true"></i>
+                            <div><h3>Chega quentinho</h3><p>Embalagens térmicas que preservam a temperatura e a crocância.</p></div>
+                        </li>
+                        <li>
+                            <i class="bi bi-sliders" aria-hidden="true"></i>
+                            <div><h3>Do seu jeito</h3><p>Escolha o nível de picância e deixe observações em cada pedido.</p></div>
+                        </li>
+                    </ul>
+                    <a class="btn btn-fx-contorno" href="sobre.html">Conheça nossa história <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SEÇÃO: COMO FUNCIONA ===== -->
+    <section class="secao secao--creme" id="como-funciona" aria-labelledby="como-titulo">
+        <div class="container">
+            <div class="secao__cabecalho secao__cabecalho--centro" data-revelar>
+                <span class="secao__rotulo">Como funciona</span>
+                <h2 class="secao__titulo" id="como-titulo">Do cardápio à sua mesa</h2>
+                <p class="secao__texto">Você escolhe, a gente prepara na hora e entrega quentinho.</p>
+            </div>
+            <ol class="passos list-unstyled m-0" data-revelar>
+                <li class="passo">
+                    <i class="bi bi-search passo__icone" aria-hidden="true"></i>
+                    <h3>Escolha</h3>
+                    <p>Navegue pelo cardápio, filtre por categoria ou preço e monte seu pedido.</p>
+                </li>
+                <li class="passo">
+                    <i class="bi bi-bag-check passo__icone" aria-hidden="true"></i>
+                    <h3>Peça</h3>
+                    <p>Informe o endereço, escolha a forma de pagamento e confirme em poucos cliques.</p>
+                </li>
+                <li class="passo">
+                    <i class="bi bi-fire passo__icone" aria-hidden="true"></i>
+                    <h3>Acompanhe</h3>
+                    <p>Veja em "Meus Pedidos" quando seu pedido entra em preparação e sai para entrega.</p>
+                </li>
+                <li class="passo">
+                    <i class="bi bi-house-heart passo__icone" aria-hidden="true"></i>
+                    <h3>Receba</h3>
+                    <p>Embalagem térmica, entrega rápida e pagamento na hora de receber.</p>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ===== SEÇÃO: FAIXA DE CUPOM ===== -->
+    <section class="secao" aria-label="Promoção">
+        <div class="container">
+            <div class="faixa-cupom" data-revelar>
+                <div>
+                    <span class="secao__rotulo">Cupom especial</span>
+                    <h2>25% de desconto <em>na sua mesa</em></h2>
+                    <p>Em homenagem à Andreia, a primeira cozinheira da nossa equipe: use o cupom <span class="codigo-cupom">ANDREIA</span> no carrinho e ganhe 25% em qualquer pedido.</p>
+                </div>
+                <a class="btn btn-fx-destaque btn-lg-fx" href="cardapio.html">Quero aproveitar <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/dados.js"></script>
+<script src="js/loja.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/paginas/inicio.js"></script>
+<script src="js/site.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>
